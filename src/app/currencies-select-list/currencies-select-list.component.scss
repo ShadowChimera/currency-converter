@@ -1,0 +1,167 @@
+@use "../../utils/scss/breakpoints" as bp;
+
+.select-list-container {
+  --list-padding: 1.5rem;
+  --list-item-padding-y: 1rem;
+
+  --shadow-y-offset: 0.5rem;
+  --shadow-blur-1: 2rem;
+  --shadow-blur-2: 1rem;
+  --shadow-opacity: 0.04;
+
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  max-height: clamp(100%, 50vh, 500px);
+  border-radius: 0.25rem;
+  background: var(--clr-lt-base);
+  box-shadow: 0 var(--shadow-y-offset) var(--shadow-blur-1) 0
+      rgba(var(--clr-dk-base-rgba-params), var(--shadow-opacity)),
+    0 var(--shadow-y-offset) var(--shadow-blur-2) 0
+      rgba(var(--clr-dk-base-rgba-params), var(--shadow-opacity));
+
+  overflow-y: auto;
+}
+
+:host {
+  &.first-render {
+    .select-list-container {
+      z-index: -100;
+      visibility: hidden;
+    }
+
+    .dark-background {
+      z-index: -150;
+      display: none;
+    }
+  }
+  &:not(.first-render) {
+    .select-list-container {
+      animation: var(--transition) popup-fade-out forwards;
+    }
+    .dark-background {
+      animation: var(--transition) popup-fade-out forwards;
+    }
+  }
+  &.visible {
+    .select-list-container {
+      animation: var(--transition) popup-fade-in forwards;
+    }
+    .dark-background {
+      animation: var(--transition) popup-fade-in forwards;
+    }
+  }
+}
+
+.dark-background {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.close-button {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5em;
+  background-color: rgba(var(--clr-dk-base-rgba-params), 0);
+  cursor: pointer;
+  transition: background var(--transition);
+
+  &:hover {
+    background-color: rgba(var(--clr-dk-base-rgba-params), 0.04);
+  }
+  &:active {
+    background-color: rgba(var(--clr-dk-base-rgba-params), 0.06);
+  }
+
+  .icon {
+    display: block;
+    rotate: 45deg;
+
+    & * {
+      fill: var(--clr-dk-base);
+    }
+  }
+}
+
+.search-input {
+  flex: 1 1 0;
+  padding: var(--list-padding) 0;
+  border: none;
+  outline: none;
+
+  &::placeholder {
+    color: var(--clr-dk-quiet-secondary);
+    opacity: 0.6;
+  }
+
+  &-container {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 0 var(--list-padding);
+  }
+}
+
+@keyframes popup-fade-in {
+  from {
+    opacity: 0;
+    visibility: visible;
+    z-index: 100;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+    z-index: 100;
+  }
+}
+@keyframes popup-fade-out {
+  from {
+    opacity: 1;
+    z-index: 100;
+    visibility: visible;
+  }
+  99% {
+    opacity: 0;
+    z-index: 100;
+    visibility: visible;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+    z-index: -100;
+  }
+}
+
+@media screen and (min-width: bp.$lg) and (min-height: 450px) {
+  .dark-background {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: bp.$lg), screen and (max-height: 450px) {
+  .select-list-container {
+    --shadow-opacity: 0.25;
+    --shadow-offset-y: 0;
+
+    inset-block: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 100%;
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: bp.$md) {
+  .select-list-container {
+    inset: 0;
+    transform: none;
+    max-width: 100%;
+    box-shadow: none;
+  }
+}

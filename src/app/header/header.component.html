@@ -1,0 +1,131 @@
+<ng-container *ngIf="conversionData; else loading">
+  <div class="conversion-info">
+    <p class="currency">
+      <app-currency-flag
+        class="currency-flag-container"
+        [currencyCode]="CONVERT_TO_CURRENCIES[0]"
+      ></app-currency-flag>
+      <span class="currency-code">{{ CONVERT_TO_CURRENCIES[0] }}</span>
+    </p>
+    <p class="price">
+      1
+      <span *ngIf="currenciesData" class="currency-symbol">{{
+        currenciesData[CONVERT_TO_CURRENCIES[0]].symbol
+      }}</span>
+    </p>
+    <img
+      class="icon"
+      src="../assets/images/icons/arrow-swap-horizontal.svg"
+      alt="Arrow swap icon"
+    />
+    <p class="price">
+      {{ conversionData.rates[CONVERT_TO_CURRENCIES[0]] }}
+      <span *ngIf="currenciesData" class="currency-symbol">{{
+        currenciesData[CONVERT_FROM_CURRENCY].symbol
+      }}</span>
+    </p>
+
+    <p class="currency">
+      <app-currency-flag
+        class="currency-flag-container"
+        [currencyCode]="CONVERT_FROM_CURRENCY"
+      ></app-currency-flag>
+      <span class="currency-code">{{ CONVERT_FROM_CURRENCY }}</span>
+    </p>
+  </div>
+  <div class="conversion-info">
+    <p class="currency">
+      <app-currency-flag
+        class="currency-flag-container"
+        [currencyCode]="CONVERT_TO_CURRENCIES[1]"
+      ></app-currency-flag>
+      <span class="currency-code">{{ CONVERT_TO_CURRENCIES[1] }}</span>
+    </p>
+    <p class="price">
+      1
+      <span *ngIf="currenciesData" class="currency-symbol">{{
+        currenciesData[CONVERT_TO_CURRENCIES[1]].symbol
+      }}</span>
+    </p>
+    <img
+      class="icon"
+      src="../assets/images/icons/arrow-swap-horizontal.svg"
+      alt="Arrow swap icon"
+    />
+    <p class="price">
+      {{ conversionData.rates[CONVERT_TO_CURRENCIES[1]] }}
+      <span *ngIf="currenciesData" class="currency-symbol">{{
+        currenciesData[CONVERT_FROM_CURRENCY].symbol
+      }}</span>
+    </p>
+    <p class="currency">
+      <app-currency-flag
+        class="currency-flag-container"
+        [currencyCode]="CONVERT_FROM_CURRENCY"
+      ></app-currency-flag>
+      <span class="currency-code">{{ CONVERT_FROM_CURRENCY }}</span>
+    </p>
+  </div>
+</ng-container>
+<ng-template #loading><app-loading-icon></app-loading-icon></ng-template>
+
+<!-- <header class="header">
+  <ng-container *ngIf="conversionData">
+    <div class="currency">
+      <div
+        class="currency-flag currency-flag-{{
+          CONVERT_TO_CURRENCIES[0] | lowercase
+        }}"
+      ></div>
+      <p class="currency-code">{{ CONVERT_TO_CURRENCIES[0] }}</p>
+    </div>
+    <p class="price">
+      1
+      <span *ngIf="currenciesData" class="currency-symbol">{{
+        currenciesData[CONVERT_TO_CURRENCIES[0]].symbol
+      }}</span>
+    </p>
+    <img
+      src="../assets/images/icons/arrow-swap-horizontal.svg"
+      alt="Arrow swap icon"
+    />
+    <p class="price">
+      {{ conversionData.rates[CONVERT_TO_CURRENCIES[0]] }}
+      <span *ngIf="currenciesData" class="currency-symbol">{{
+        currenciesData[CONVERT_FROM_CURRENCY].symbol
+      }}</span>
+    </p>
+    <div class="currency">
+      <div
+        class="currency-flag currency-flag-{{
+          CONVERT_FROM_CURRENCY | lowercase
+        }}"
+      ></div>
+      <p class="currency-code">{{ CONVERT_FROM_CURRENCY }}</p>
+    </div>
+    <p class="price">
+      {{ conversionData.rates[CONVERT_TO_CURRENCIES[1]] }}
+      <span *ngIf="currenciesData" class="currency-symbol">{{
+        currenciesData[CONVERT_FROM_CURRENCY].symbol
+      }}</span>
+    </p>
+    <img
+      src="../assets/images/icons/arrow-swap-horizontal.svg"
+      alt="Arrow swap icon"
+    />
+    <p class="price">
+      1
+      <span *ngIf="currenciesData" class="currency-symbol">{{
+        currenciesData[CONVERT_TO_CURRENCIES[1]].symbol
+      }}</span>
+    </p>
+    <div class="currency">
+      <div
+        class="currency-flag currency-flag-{{
+          CONVERT_TO_CURRENCIES[1] | lowercase
+        }}"
+      ></div>
+      <p class="currency-code">{{ CONVERT_TO_CURRENCIES[1] }}</p>
+    </div>
+  </ng-container>
+</header> -->

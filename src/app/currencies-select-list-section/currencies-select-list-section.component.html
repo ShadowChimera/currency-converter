@@ -1,0 +1,59 @@
+<section class="section">
+  <h2 *ngIf="title" class="title">{{ title | titlecase }}</h2>
+  <ul class="currencies-list">
+    <ng-container *ngIf="items">
+      <li class="list-item" *ngFor="let currencyData of items | keyvalue">
+        <button
+          class="list-item-button"
+          (click)="handleItemClick(currencyData.key)"
+        >
+          <app-currency-flag
+            [currencyCode]="currencyData.key"
+            class="currency-flag"
+          ></app-currency-flag>
+          <span class="currency-code">
+            <ng-container
+              *ngIf="currencyData.value.codeMatchParts; else currencyCode"
+            >
+              <app-search-result
+                [match]="currencyData.value.codeMatchParts"
+              ></app-search-result>
+            </ng-container>
+            <ng-template #currencyCode>
+              {{ currencyData.key }}
+            </ng-template>
+          </span>
+          <span class="currency-name" title="{{ currencyData.value.name }}">
+            <ng-container
+              *ngIf="currencyData.value.nameMatchParts; else currencyName"
+            >
+              <app-search-result
+                [match]="currencyData.value.nameMatchParts"
+              ></app-search-result>
+            </ng-container>
+            <ng-template #currencyName>
+              {{ currencyData.value.name }}
+            </ng-template>
+          </span>
+        </button>
+        <button
+          [ngClass]="{
+                'favorite-button': true,
+                'active': favoriteItems.includes(currencyData.key),
+              }"
+          title="{{
+            favoriteItems.includes(currencyData.key)
+              ? 'Remove from favorites'
+              : 'Add to favorites'
+          }}"
+          (click)="handleFavoriteToggle(currencyData.key)"
+        >
+          <svg-icon
+            src="../../assets/images/icons/star.svg"
+            [class]="'icon'"
+          ></svg-icon>
+        </button>
+      </li>
+    </ng-container>
+  </ul>
+</section>

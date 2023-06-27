@@ -1,0 +1,63 @@
+<!-- <div class="currency-input"> -->
+<ng-container *ngIf="selectedCurrencyData.code; else loading">
+  <div class="currency-selector">
+    <button
+      #selectButton
+      [ngClass]="{
+        'select-button': true,
+        'active': isSelectListVisible,
+      }"
+      (click)="handleSelectButtonClick()"
+    >
+      <span class="selected-currency">
+        <app-currency-flag
+          class="currency-flag"
+          [currencyCode]="selectedCurrencyData.code"
+        ></app-currency-flag>
+        {{ selectedCurrencyData.code }}
+      </span>
+      <svg-icon
+        [class]="'icon'"
+        src="../../assets/images/icons/arrow-down.svg"
+      ></svg-icon>
+    </button>
+    <p *ngIf="conversionInfo" class="conversion-info">
+      {{ conversionInfo }}
+    </p>
+  </div>
+  <div class="currency-input">
+    <input
+      #input
+      type="text"
+      class="input"
+      placeholder="0.00"
+      (input)="handleInputChange()"
+      [formControl]="formControlCurrencyValue"
+    />
+    <span class="currency-symbol">{{
+      selectedCurrencyData.symbol_native
+    }}</span>
+  </div>
+  <app-currencies-select-list
+    class="select-list"
+    ngModel
+    ngDefaultControl
+    #currenciesSelectList
+    [isVisible]="isSelectListVisible"
+    [relatedElement]="selectButtonRef?.nativeElement"
+    [favoriteCurrencies]="favoriteCurrencies"
+    (onCurrencySelect)="handleCurrencySelect($event)"
+    (onFavoriteListUpdate)="handleFavoriteListUpdate($event)"
+    (onPopupEscape)="handlePopupEscape()"
+  ></app-currencies-select-list>
+</ng-container>
+<ng-template #loading>
+  <app-loading-icon></app-loading-icon>
+</ng-template>
+<!-- </div> -->
+
+<!--     [ngClass]="{
+        'select-list': true,
+        visible: isSelectListVisible,
+        'first-render': !isSelectListRendered,
+      }" -->

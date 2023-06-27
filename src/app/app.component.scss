@@ -1,0 +1,36 @@
+@use "../utils/scss/breakpoints" as bp;
+
+:host {
+  --page-padding: 1rem;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+.main-content {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr 3fr;
+  align-items: start;
+
+  .title {
+    align-self: center;
+    padding-inline: var(--page-padding);
+    margin: 1rem auto;
+    text-align: center;
+    color: var(--clr-brand-primary);
+    opacity: 0.5;
+  }
+}
+
+@media screen and (max-width: bp.$lg) {
+  .main-content {
+    grid-template-rows: auto 1fr;
+    .title {
+      margin-block: 2.5rem;
+      font-size: var(--fs-h3);
+    }
+  }
+}

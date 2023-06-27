@@ -1,0 +1,76 @@
+@use "../../utils/scss/breakpoints" as bp;
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.swap-button {
+  --bg-opacity: 0.12;
+
+  --shadow-y-offset: 0.25rem;
+  --shadow-blur-1: 3rem;
+  --shadow-blur-2: 2rem;
+  --shadow-opacity: 0.1;
+  --shadow-color: rgba(
+    var(--clr-brand-primary-rgba-params),
+    var(--shadow-opacity)
+  );
+  --shadow-base: 0px var(--shadow-y-offset) var(--shadow-blur-1) 0px
+      var(--shadow-color),
+    0px var(--shadow-y-offset) var(--shadow-blur-2) 0px var(--shadow-color);
+
+  --transition: 0.2s ease-out;
+
+  position: relative;
+  padding: 1em;
+  border: none;
+  border-radius: 0.5em;
+  background: rgba(var(--clr-brand-primary-rgba-params), var(--bg-opacity));
+  box-shadow: var(--shadow-base);
+
+  cursor: pointer;
+  transition: background-color var(--transition), box-shadow var(--transition);
+
+  &:hover {
+    --bg-opacity: 0.175;
+
+    box-shadow: var(--shadow-base),
+      0px var(--shadow-y-offset) 1rem 0px var(--shadow-color);
+  }
+
+  &:active {
+    --bg-opacity: 0.2;
+    --shadow-blur-1: 1rem;
+    --shadow-blur-2: 0.5rem;
+    --shadow-y-offset: 0.1rem;
+    --shadow-opacity: 0.12;
+
+    box-shadow: var(--shadow-base),
+      0px var(--shadow-y-offset) 0.2rem 0px var(--shadow-color);
+  }
+
+  .icon {
+    & * {
+      fill: var(--clr-brand-primary);
+    }
+  }
+}
+
+@media screen and (max-width: bp.$lg) {
+  :host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    .swap-button {
+      transform: rotateZ(90deg);
+    }
+  }
+}
+
+@media screen and (max-width: bp.$md) {
+}

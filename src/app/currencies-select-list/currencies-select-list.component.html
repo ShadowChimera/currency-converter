@@ -1,0 +1,50 @@
+<ng-container *ngIf="currenciesData; else loading">
+  <div class="dark-background"></div>
+  <div
+    [ngClass]="{
+      'select-list-container': true
+    }"
+    #container
+  >
+    <div class="search-input-container">
+      <svg-icon
+        [class]="'icon'"
+        src="../../assets/images/icons/search.svg"
+      ></svg-icon>
+      <input
+        #searchInput
+        type="text"
+        class="search-input"
+        placeholder="Currency code or name..."
+        (input)="handleSearchInput(searchInput.value)"
+        [formControl]="formControlSearch"
+      />
+      <button class="close-button" (click)="closeSelectList()">
+        <svg-icon
+          [class]="'icon'"
+          src="../../assets/images/icons/plus.svg"
+        ></svg-icon>
+      </button>
+    </div>
+    <ng-container *ngIf="searchResults; else selectList">
+      <app-currencies-select-list-section
+        [items]="searchResults"
+        [favoriteItems]="favoriteCurrenciesList"
+        (onItemClick)="handleCurrencySelect($event)"
+        (onFavoriteToggle)="handleToggleFavorite($event)"
+      ></app-currencies-select-list-section>
+    </ng-container>
+    <ng-template #selectList>
+      <ng-container *ngFor="let section of listSections">
+        <app-currencies-select-list-section
+          [title]="section.title"
+          [items]="section.data"
+          [favoriteItems]="favoriteCurrenciesList"
+          (onItemClick)="handleCurrencySelect($event)"
+          (onFavoriteToggle)="handleToggleFavorite($event)"
+        ></app-currencies-select-list-section>
+      </ng-container>
+    </ng-template>
+  </div>
+</ng-container>
+<ng-template #loading><app-loading-icon></app-loading-icon></ng-template>

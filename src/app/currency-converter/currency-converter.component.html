@@ -1,0 +1,28 @@
+<app-currency-input
+  [currencyService]="currencyService"
+  [selectedCurrencyCode]="currencyInputsData[0].code"
+  [currencyToConvertTo]="currencyInputsData[1].code"
+  [currencyValue]="currencyInputsData[0].value"
+  [conversionInfo]="currencyInputsData[0].conversionInfo"
+  [favoriteCurrencies]="favoriteCurrencies"
+  (onCurrencyChange)="handleCurrencyChange($event, 0)"
+  (onCurrencyValueChange)="handleCurrencyValueChange($event, 0)"
+  (onFavoriteCurrenciesUpdate)="handleFavoriteCurrenciesUpdate($event)"
+></app-currency-input>
+<button class="swap-button" (click)="handleSwapCurrency()">
+  <svg-icon
+    src="../../assets/images/icons/arrow-swap-horizontal.svg"
+    [class]="'icon'"
+  />
+</button>
+<app-currency-input
+  [currencyService]="currencyService"
+  [selectedCurrencyCode]="currencyInputsData[1].code"
+  [currencyToConvertTo]="currencyInputsData[0].code"
+  [currencyValue]="currencyInputsData[1].value"
+  [conversionInfo]="currencyInputsData[1].conversionInfo"
+  [favoriteCurrencies]="favoriteCurrencies"
+  (onCurrencyChange)="handleCurrencyChange($event, 1)"
+  (onCurrencyValueChange)="handleCurrencyValueChange($event, 1)"
+  (onFavoriteCurrenciesUpdate)="handleFavoriteCurrenciesUpdate($event)"
+></app-currency-input>

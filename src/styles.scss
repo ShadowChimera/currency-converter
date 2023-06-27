@@ -1,0 +1,32 @@
+@use "./utils/scss/reset" as *;
+@use "./utils/scss/vars" as *;
+
+html {
+  font-size: var(--fs-base);
+}
+
+body {
+  background-color: var(--clr-lt-primary);
+  font-family: var(--ff-base);
+  color: var(--clr-dk-base);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+}
+h2 {
+  font-size: var(--fs-h2);
+}
+h3 {
+  font-size: var(--fs-h3);
+}
+h4 {
+  font-size: var(--fs-h4);
+}
+h5 {
+  font-size: var(--fs-h5);
+}
+h6 {
+  font-size: var(--fs-h6);
+}

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { CurrencyService } from './currency.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'currency-converter';
+  title = 'Currency Converter';
+  constructor(public currencyService: CurrencyService) {}
 }

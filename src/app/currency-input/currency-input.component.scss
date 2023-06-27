@@ -1,0 +1,183 @@
+@use "../../utils/scss/breakpoints" as bp;
+
+:host {
+  --shadow-y-offset: 0.25rem;
+  --shadow-blur-1: 5rem;
+  --shadow-blur-2: 3rem;
+  --shadow-opacity: 0.02;
+
+  --main-padding-x: 3rem;
+  --main-padding-y: 2rem;
+
+  --select-button-padding: 0.5em;
+  --select-button-fs: 1rem;
+
+  --transition: 0.2s ease-out;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0 1.5rem;
+  width: 28rem;
+  padding: var(--main-padding-y) var(--main-padding-x);
+
+  border-radius: 1rem;
+  background-color: var(--clr-lt-base);
+  box-shadow: 0px var(--shadow-y-offset) var(--shadow-blur-1) 0px
+      rgba(var(--clr-dk-base-rgba-params), var(--shadow-opacity)),
+    0px var(--shadow-y-offset) var(--shadow-blur-2) 0px
+      rgba(var(--clr-dk-base-rgba-params), var(--shadow-opacity));
+
+  transition: box-shadow var(--transition), grid-template-rows var(--transition);
+}
+
+.input {
+  &::placeholder {
+    color: var(--clr-dk-quiet-secondary);
+    opacity: 0.6;
+  }
+}
+
+.select-button {
+  display: flex;
+  align-items: center;
+  padding: var(--select-button-padding);
+  margin-left: calc(-1 * var(--select-button-padding));
+  background: var(--clr-lt-base);
+  border: none;
+  border-radius: 0.25em;
+  font-size: var(--select-button-fs);
+
+  cursor: pointer;
+  transition: background 0.125s ease-out;
+
+  &:hover {
+    background: rgba(var(--clr-dk-base-rgba-params), 0.04);
+  }
+  &:active,
+  &.active {
+    background: rgba(var(--clr-dk-base-rgba-params), 0.08);
+  }
+
+  .selected-currency {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .currency-flag {
+    display: block;
+    img {
+      display: block;
+    }
+  }
+}
+
+.conversion-info {
+  margin-top: 0.25em;
+  color: var(--clr-dk-quiet-secondary);
+  font-size: var(--fs-sm);
+}
+
+.currency-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--fs-lg);
+
+  .input {
+    flex-shrink: 1;
+    width: 100%;
+    padding: 0.5em;
+    border: none;
+    border-radius: 0.25em;
+    background: rgba(var(--clr-dk-base-rgba-params), 0);
+    text-align: right;
+
+    transition: background 0.125s linear;
+
+    &:hover {
+      background: rgba(var(--clr-dk-base-rgba-params), 0.02);
+    }
+    &:focus {
+      background: rgba(var(--clr-dk-base-rgba-params), 0.03);
+      outline: none;
+    }
+  }
+
+  .currency-symbol {
+    color: var(--clr-dk-quiet-secondary);
+  }
+}
+
+@media screen and (min-width: bp.$lg) and (min-height: 450px) {
+  :host {
+    position: relative;
+  }
+}
+
+@media screen and (min-width: bp.$lg) and (min-height: 580px) {
+  .select-list {
+    position: absolute;
+    inset-inline: 0 !important;
+    top: calc(
+      var(--main-padding-y) + 1.5 * var(--select-button-fs) + 2 *
+        var(--select-button-padding)
+    ) !important;
+  }
+}
+
+@media screen and (max-width: bp.$lg) {
+  :host {
+    position: static;
+  }
+}
+
+@media screen and (max-width: bp.$md) {
+  :host {
+    --active-elements-padding-block: 0.75rem;
+
+    position: static;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+    padding: var(--page-padding);
+  }
+
+  .currency-selector {
+    width: 100%;
+  }
+
+  .currency-input {
+    flex-direction: row-reverse;
+    width: 100%;
+
+    .input {
+      padding-block: var(--active-elements-padding-block);
+      text-align: left;
+      background: none !important;
+    }
+  }
+
+  .select-button {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-block: var(--active-elements-padding-block);
+    margin: 0;
+  }
+
+  .currency-input,
+  .select-button {
+    padding-inline: 2rem;
+    border-radius: 2rem;
+    background-color: rgba(var(--clr-dk-base-rgba-params), 0.02);
+  }
+
+  .conversion-info {
+    margin-top: 1em;
+    text-align: center;
+  }
+}
